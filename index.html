@@ -71,8 +71,47 @@ void loop() {
   // put your main code here, to run repeatedly:
 }</code></pre></div></li></ol><div class="takeaways"><h3>Key takeaways</h3><ul><li>Select the correct board and COM port, and confirm with Get Board Info.</li><li>Put your Blynk lines and hotspot name/password in <code>secrets.h</code>, then Verify before Upload.</li><li>Use 74880 baud in the Serial Monitor, and reset the board if an upload fails.</li><li>Success means the OLED shows readings and Blynk shows the device Online.</li><li>Finish by uploading blank code to reset the board.</li></ul></div><div class="checkin" id="checkin-part-5" data-type="mc" data-answer="1" data-why="74880 baud is the rate the lab sketch uses."><h3>Check-in</h3><p class="q" id="checkin-part-5-q">Which baud rate should the Serial Monitor use in this lab?</p><div role="group" aria-labelledby="checkin-part-5-q"><div class="opts"><label class="opt"><input type="radio" name="checkin-part-5" value="0"><span>9600 baud</span></label><label class="opt"><input type="radio" name="checkin-part-5" value="1"><span>74880 baud</span></label><label class="opt"><input type="radio" name="checkin-part-5" value="2"><span>115200 baud</span></label></div></div><p class="feedback" role="status" aria-live="polite"></p></div></section>
     
-<section class="part" id="part-6">
-  <h2>Lesson 7 – Submit your work</h2><p class="aim"><strong>In this lesson:</strong> you gather evidence of your working system and reflect on where it could be used.</p>
+<section class="part" id="simulator">
+  <h2>Lesson 7 – Try it in the simulator</h2>
+  <p class="aim"><strong>In this lesson:</strong> you practise the whole system on screen: power the board, connect it, and watch how sensor values reach the Blynk dashboard.</p>
+  <p>This is a simplified model of the lab setup, so you can experiment without hardware. Nothing you do here is sent anywhere. Work through the goals; each one ticks itself when you achieve it.</p>
+  <ol class="sim-goals" id="sim-goals" aria-label="Simulator goals">
+    <li data-goal="usb"><span class="mark" aria-hidden="true"></span>Plug in the USB cable and see the OLED show “System ON / Waiting…”.</li>
+    <li data-goal="online"><span class="mark" aria-hidden="true"></span>Turn on the phone hotspot so the device goes Online and the OLED shows readings.</li>
+    <li data-goal="heat"><span class="mark" aria-hidden="true"></span>Warm the temperature sensor to 35 °C or more and watch both displays follow.</li>
+    <li data-goal="motion"><span class="mark" aria-hidden="true"></span>Move the board and see the String widget change to “Motion”.</li>
+    <li data-goal="buzzer"><span class="mark" aria-hidden="true"></span>Flip the Buzzer switch in the dashboard and see the buzzer respond.</li>
+  </ol>
+  <p class="sim-count" id="sim-count" aria-live="polite"></p>
+  <div class="sim">
+    <div class="sim-panel">
+      <h3>Your Arduino</h3>
+      <label class="sim-row"><input type="checkbox" id="sim-usb"><span>USB cable plugged into laptop</span></label>
+      <label class="sim-row"><input type="checkbox" id="sim-wifi"><span>Phone hotspot on</span></label>
+      <div class="sim-slider"><label for="sim-temp">Temperature sensor: <output id="sim-temp-out" for="sim-temp">24</output> °C</label><input type="range" id="sim-temp" min="0" max="60" step="1" value="24"></div>
+      <div class="sim-slider"><label for="sim-hum">Humidity sensor: <output id="sim-hum-out" for="sim-hum">55</output> %</label><input type="range" id="sim-hum" min="0" max="100" step="1" value="55"></div>
+      <label class="sim-row"><input type="checkbox" id="sim-motion"><span>Board is moving</span></label>
+      <div class="oled" id="sim-oled"><div id="sim-oled-1"></div><div id="sim-oled-2"></div><div id="sim-oled-3"></div><div id="sim-oled-4"></div></div>
+      <p class="sim-buzzer" id="sim-buzzer-state"></p>
+    </div>
+    <div class="sim-panel">
+      <h3>Blynk dashboard</h3>
+      <p class="sim-status" id="sim-status"></p>
+      <div class="widgets">
+        <div class="widget"><span class="wl">Buzzer (V0)</span><label class="sim-row"><input type="checkbox" id="sim-buzzer"><span id="sim-buzzer-label">Off</span></label></div>
+        <div class="widget"><span class="wl">Temperature (V2)</span><span class="wv" id="sim-w-temp"></span></div>
+        <div class="widget"><span class="wl">Humidity (V6)</span><span class="wv" id="sim-w-hum"></span></div>
+        <div class="widget"><span class="wl">String (V3)</span><span class="wv" id="sim-w-str"></span></div>
+      </div>
+      <p class="sim-alert" id="sim-alert" role="status"></p>
+      <p class="sim-note">The switch only works while the device is Online, because the command travels through the cloud. The overheat alert is a simulator extra to show predictive maintenance; it is not part of the lab sketch.</p>
+    </div>
+  </div>
+  <div class="takeaways"><h3>Key takeaways</h3><ul><li>The OLED reads the sensors on the board; the dashboard only shows values while the device is Online.</li><li>Each datastream has a virtual pin: Temperature V2, Humidity V6, String V3, Buzzer V0.</li><li>Data flows up to the cloud, and commands such as the buzzer switch flow back down to the board.</li></ul></div>
+  <div class="checkin" id="checkin-simulator" data-type="mc" data-answer="1" data-why="The USB cable powers the board and the hotspot gives it internet to reach Blynk."><h3>Check-in</h3><p class="q" id="checkin-simulator-q">What must be on before the dashboard shows the device as Online?</p><div role="group" aria-labelledby="checkin-simulator-q"><div class="opts"><label class="opt"><input type="radio" name="checkin-simulator" value="0"><span>Only the USB cable</span></label><label class="opt"><input type="radio" name="checkin-simulator" value="1"><span>The USB cable and the phone hotspot</span></label><label class="opt"><input type="radio" name="checkin-simulator" value="2"><span>The buzzer switch</span></label></div></div><p class="feedback" role="status" aria-live="polite"></p></div>
+</section>
+    <section class="part" id="part-6">
+  <h2>Lesson 8 – Submit your work</h2><p class="aim"><strong>In this lesson:</strong> you gather evidence of your working system and reflect on where it could be used.</p>
   <p>Submit <strong>one new Word document</strong> in your class MS Team. You may use the guide template below.</p>
   <ul class="plain"><li><label class="check inline"><input type="checkbox" data-id="sub-0"><span>Photos of your hardware and screenshots of the Blynk dashboard (and mobile app if you have it) showing the setup working. Try different situations to get different values.</span></label></li><li><label class="check inline"><input type="checkbox" data-id="sub-1"><span>A description of the challenges you met while working on this lab.</span></label></li><li><label class="check inline"><input type="checkbox" data-id="sub-2"><span>Modern-world or industrial applications that could use this setup, with an explanation of each.</span></label></li><li><label class="check inline"><input type="checkbox" data-id="sub-3"><span>A group photo with your working device.</span></label></li></ul>
   <h3>Guide template</h3>

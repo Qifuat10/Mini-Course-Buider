@@ -31,6 +31,7 @@ How students move around:
 - Lessons are sections on one page; JavaScript shows one at a time (no separate pages). Previous/Next buttons and the contents menu switch between them, and the URL hash (e.g. `#part-3`) links to a lesson.
 - Click a table-of-contents link to jump to a lesson; the current lesson is highlighted.
 - The progress bar shows which lesson they are on out of the total.
+- Lesson 7 is an interactive simulator of the Arduino + Blynk setup (USB, hotspot, sensor sliders, motion, buzzer, with self-ticking goals). Lesson 8 is the submission.
 - Each lesson ends with one inline check-in question (multiple choice, or short answer in lesson 5). The answer is marked right or wrong in place, and students can continue either way.
 - Ticked assignment steps, check-in answers and the chosen theme are remembered in the browser.
 

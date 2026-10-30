@@ -150,6 +150,74 @@
     }
   });
 
+  // Simulator: a simplified model of the Arduino + Blynk setup
+  (function () {
+    var el = function (id) { return document.getElementById(id); };
+    if (!el("sim-usb")) return;
+    var usb = el("sim-usb"), wifi = el("sim-wifi"), temp = el("sim-temp"), hum = el("sim-hum");
+    var motion = el("sim-motion"), buzzer = el("sim-buzzer");
+    var goalKey = "sim:goals";
+    var done = {};
+    try { done = JSON.parse(load(goalKey) || "{}"); } catch (e) { done = {}; }
+
+    function render() {
+      var on = usb.checked;
+      var online = on && wifi.checked;
+      if (!online) buzzer.checked = false;
+      buzzer.disabled = !online;
+
+      el("sim-temp-out").textContent = temp.value;
+      el("sim-hum-out").textContent = hum.value;
+
+      var lines = ["", "", "", ""];
+      if (on && !online) lines = ["System ON", "Waiting...", "", ""];
+      if (online) lines = ["Temp *C:", Number(temp.value).toFixed(2), "Hum. %:", Number(hum.value).toFixed(2)];
+      lines.forEach(function (t, i) { el("sim-oled-" + (i + 1)).textContent = t; });
+      el("sim-oled").classList.toggle("lit", on);
+
+      var buzzing = online && buzzer.checked;
+      el("sim-buzzer-state").textContent = "Buzzer: " + (buzzing ? "ON (beeping)" : "off");
+      el("sim-buzzer-label").textContent = buzzer.checked ? "On" : "Off";
+
+      el("sim-status").textContent = online ? "● Online" : "○ Offline" + (on ? " (waiting for Wi-Fi)" : " (board has no power)");
+      el("sim-status").classList.toggle("is-online", online);
+      el("sim-w-temp").textContent = online ? temp.value + " °C" : "—";
+      el("sim-w-hum").textContent = online ? hum.value + " %" : "—";
+      el("sim-w-str").textContent = online ? (motion.checked ? "Motion" : "No Motion") : "—";
+
+      var hot = online && Number(temp.value) >= 40;
+      el("sim-alert").textContent = hot ? "Overheat alert: temperature is 40 °C or more. A technician would be notified." : "";
+      el("sim-alert").classList.toggle("on", hot);
+
+      var now = {
+        usb: on,
+        online: online,
+        heat: online && Number(temp.value) >= 35,
+        motion: online && motion.checked,
+        buzzer: buzzing
+      };
+      var changed = false;
+      Object.keys(now).forEach(function (k) {
+        if (now[k] && !done[k]) { done[k] = true; changed = true; }
+      });
+      if (changed) save(goalKey, JSON.stringify(done));
+      var count = 0;
+      Array.prototype.forEach.call(document.querySelectorAll("#sim-goals li"), function (li) {
+        var ok = !!done[li.dataset.goal];
+        if (ok) count++;
+        li.classList.toggle("done", ok);
+        li.querySelector(".mark").textContent = ok ? "✓" : "";
+      });
+      el("sim-count").textContent = count + " of 5 goals done" + (count === 5 ? ". Well done!" : "");
+    }
+
+    [usb, wifi, temp, hum, motion, buzzer].forEach(function (c) {
+      c.addEventListener("input", render);
+      c.addEventListener("change", render);
+    });
+    render();
+  })();
+
   document.getElementById("reset").addEventListener("click", function () {
     if (!window.confirm("Clear all ticked steps?")) return;
     boxes.forEach(function (b) { b.checked = false; save("tick:" + b.dataset.id, "0"); });

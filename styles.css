@@ -179,6 +179,32 @@ thead th, tbody th { background: var(--note-bg); }
 .checkin.wrong .feedback { color: var(--danger); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+.sim-goals { list-style: none; padding: 0; margin: 12px 0 4px; display: flex; flex-direction: column; gap: 6px; }
+.sim-goals li { display: flex; gap: 10px; align-items: flex-start; }
+.sim-goals .mark { flex: none; width: 22px; height: 22px; border: 1px solid var(--text); border-radius: 4px; text-align: center; line-height: 20px; font-weight: 700; color: var(--accent-text); }
+.sim-goals li.done .mark { background: var(--accent); border-color: var(--accent); }
+.sim-count { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); margin: 0 0 16px; }
+.sim { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.sim-panel { border: 1px solid var(--border); border-radius: 4px; padding: 4px 16px 16px; }
+.sim-row { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; }
+.sim-row input[type="checkbox"] { width: 22px; height: 22px; margin: 0; accent-color: var(--accent); flex: none; }
+.sim-slider { display: flex; flex-direction: column; gap: 4px; margin: 6px 0 10px; }
+.sim-slider input { width: 100%; min-height: 32px; accent-color: var(--accent); }
+.oled { margin: 12px 0 8px; padding: 12px 14px; min-height: 104px; border-radius: 4px; background: #05070c; color: #05070c; font-family: var(--font-mono); font-size: 1.05rem; line-height: 1.3; border: 2px solid var(--border); }
+.oled.lit { color: #8fd3ff; }
+.oled div { min-height: 1.3em; }
+.sim-buzzer { margin: 0; font-family: var(--font-mono); font-size: 0.875rem; color: var(--muted); }
+.sim-status { margin: 8px 0 12px; font-weight: 600; color: var(--muted); }
+.sim-status.is-online { color: var(--accent); }
+.widgets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.widget { background: var(--note-bg); border-radius: 4px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; min-height: 84px; }
+.widget .wl { font-size: 0.8125rem; color: var(--muted); }
+.widget .wv { font-size: 1.5rem; font-weight: 600; }
+.sim-alert { margin: 12px 0 0; }
+.sim-alert.on { background: var(--danger-bg); border: 1px solid var(--danger); color: var(--danger); border-radius: 4px; padding: 8px 12px; font-weight: 500; }
+.sim-alert:empty { display: none; }
+.sim-note { margin: 12px 0 0; font-size: 0.875rem; color: var(--muted); }
+
 .lesson-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; }
 #position { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
 
