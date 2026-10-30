@@ -163,6 +163,22 @@ thead th, tbody th { background: var(--note-bg); }
 .takeaways h3 { margin: 0 0 6px; }
 .takeaways ul { margin: 0; padding-left: 20px; }
 
+.checkin { border: 1px solid var(--border); border-radius: 4px; padding: 16px 20px; margin-top: 24px; }
+.checkin h3 { margin: 0 0 4px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.checkin .q { margin: 0 0 10px; font-weight: 600; }
+.opts { display: flex; flex-direction: column; gap: 6px; }
+.opt { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; }
+.opt input { width: 20px; height: 20px; margin: 0; accent-color: var(--accent); flex: none; }
+.opt:hover { border-color: var(--accent); }
+.text-answer { display: flex; flex-wrap: wrap; gap: 8px; }
+.text-answer input { flex: 1 1 160px; min-height: 44px; padding: 8px 12px; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--text); border-radius: 4px; }
+.feedback { margin: 10px 0 0; font-weight: 500; }
+.feedback:empty { display: none; }
+.checkin.right { border-color: var(--accent); background: var(--note-bg); }
+.checkin.wrong { border-color: var(--danger); background: var(--danger-bg); }
+.checkin.wrong .feedback { color: var(--danger); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
 .lesson-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; }
 #position { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
 

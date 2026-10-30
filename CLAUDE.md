@@ -31,7 +31,8 @@ How students move around:
 - Lessons are sections on one page; JavaScript shows one at a time (no separate pages). Previous/Next buttons and the contents menu switch between them, and the URL hash (e.g. `#part-3`) links to a lesson.
 - Click a table-of-contents link to jump to a lesson; the current lesson is highlighted.
 - The progress bar shows which lesson they are on out of the total.
-- Ticked assignment steps and the chosen theme are remembered in the browser.
+- Each lesson ends with one inline check-in question (multiple choice, or short answer in lesson 5). The answer is marked right or wrong in place, and students can continue either way.
+- Ticked assignment steps, check-in answers and the chosen theme are remembered in the browser.
 
 Phases:
 - **Phase 1 - Course from the slides:** build the page from the user's slides (PDF or PowerPoint), with the lessons, table of contents, progress bar and theme toggle. Ask the user for the slides before starting.

@@ -104,6 +104,52 @@
   });
   refresh();
 
+  // Check-in questions: answer shown inline, students can always continue
+  Array.prototype.slice.call(document.querySelectorAll(".checkin")).forEach(function (box) {
+    var type = box.dataset.type;
+    var answers = box.dataset.answer.split("|");
+    var feedback = box.querySelector(".feedback");
+    var key = "checkin:" + box.id;
+    var inputs = Array.prototype.slice.call(box.querySelectorAll("input"));
+    var button = box.querySelector(".check-btn");
+
+    function respond(value, store) {
+      var right = type === "mc"
+        ? value === answers[0]
+        : answers.indexOf(value.trim().toLowerCase()) !== -1;
+      if (store) save(key, value);
+      inputs.forEach(function (i) { i.disabled = true; });
+      if (button) button.disabled = true;
+      box.classList.add("answered", right ? "right" : "wrong");
+      var correct = type === "mc"
+        ? box.querySelectorAll(".opt span")[Number(answers[0])].textContent
+        : answers[0].toUpperCase();
+      feedback.textContent = (right ? "Correct. " : "Not quite. The answer is “" + correct + "”. ") + box.dataset.why;
+    }
+
+    if (type === "mc") {
+      inputs.forEach(function (i) {
+        i.addEventListener("change", function () { respond(i.value, true); });
+      });
+    } else {
+      var field = inputs[0];
+      function submit() { if (field.value.trim()) respond(field.value, true); }
+      button.addEventListener("click", submit);
+      field.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); submit(); } });
+    }
+
+    var saved = load(key);
+    if (saved !== null) {
+      if (type === "mc") {
+        var pick = inputs.filter(function (i) { return i.value === saved; })[0];
+        if (pick) pick.checked = true;
+      } else {
+        inputs[0].value = saved;
+      }
+      respond(saved, false);
+    }
+  });
+
   document.getElementById("reset").addEventListener("click", function () {
     if (!window.confirm("Clear all ticked steps?")) return;
     boxes.forEach(function (b) { b.checked = false; save("tick:" + b.dataset.id, "0"); });
