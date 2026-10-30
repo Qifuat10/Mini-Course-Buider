@@ -17,6 +17,9 @@ The assignment section is built. Lessons from the slides (Phase 1) go in `index.
 1. Every page must be responsive and work on desktop, tablet, and phone.
 2. Users can toggle between a light and a dark theme. The default is the light theme.
 
+## Visual Design
+"Blueprint": engineering-document look. Fonts: IBM Plex Sans (text) and IBM Plex Mono (labels, step numbers). Light palette: cool white `#F6F8FB`, navy ink `#0F1B2D`, blue accent `#1F5BFF`, orange `#B84300` for warnings. Dark palette: midnight `#0B1220`, soft blue accent `#6B93FF`. Squared corners (4-6px), thin borders, and colours are CSS variables in `styles.css`.
+
 ## Feature Plan
 The site is one page (`index.html`) that shows one lesson section at a time, in this order:
 1. Header: course title and the light/dark theme toggle.
