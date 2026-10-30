@@ -1,1 +1,1 @@
-# Mini-Course-Buider
+# Mini-Course-Builder
