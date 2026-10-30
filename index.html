@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="progress" id="progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100"></div>
+<div class="progress" id="progress" role="progressbar" aria-label="Course progress" aria-valuemin="0" aria-valuemax="100"></div>
 
 <header class="topbar">
   <button class="toc-toggle" id="toc-toggle" aria-expanded="false" aria-controls="toc">Contents</button>
@@ -86,6 +86,12 @@ void loop() {
   <p>Then add these sections: <em>Photos of hardware &amp; group photo</em>, <em>Photos / screenshots of Blynk dashboard</em>, <em>Describe your challenges while working on this lab setup</em>, and <em>Suggest modern-world or industrial applications that can make use of this setup, and elaborate</em>.</p>
 </section>
 
+
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <button type="button" id="prev">Previous</button>
+      <span id="position"></span>
+      <button type="button" id="next">Next</button>
+    </nav>
 
     <footer>
       <p>Source: E118 Fundamentals of Industrial Internet of Things, CA1 Lab Assignment. © 2026 School of Engineering, Republic Polytechnic, Singapore.</p>

@@ -18,16 +18,16 @@ The assignment section is built. Lessons from the slides (Phase 1) go in `index.
 2. Users can toggle between a light and a dark theme. The default is the light theme.
 
 ## Feature Plan
-The site is one long scrolling page (`index.html`), in this order:
+The site is one page (`index.html`) that shows one lesson section at a time, in this order:
 1. Header: course title and the light/dark theme toggle.
 2. Table of contents: stays visible while scrolling (a collapsible menu on phones).
 3. Lessons: one section per slide (3-5 in total).
 4. Practical assignment: a section with steps students can tick off.
 
 How students move around:
-- Scroll down through the lessons.
+- Lessons are sections on one page; JavaScript shows one at a time (no separate pages). Previous/Next buttons and the contents menu switch between them, and the URL hash (e.g. `#part-3`) links to a lesson.
 - Click a table-of-contents link to jump to a lesson; the current lesson is highlighted.
-- A progress bar shows how far down the course they are.
+- The progress bar shows which lesson they are on out of the total.
 - Ticked assignment steps and the chosen theme are remembered in the browser.
 
 Phases:

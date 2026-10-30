@@ -22,24 +22,18 @@
     save("theme", next);
   });
 
-  // Reading progress bar
-  var bar = document.getElementById("progress");
-  function updateProgress() {
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
-    bar.style.width = pct + "%";
-    bar.setAttribute("aria-valuenow", Math.round(pct));
-  }
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("resize", updateProgress);
-  updateProgress();
-
-  // Table of contents built from each section's heading
+  // Lessons: one section is shown at a time, switched with JavaScript
   var sections = Array.prototype.slice.call(document.querySelectorAll("main section.part"));
+  var bar = document.getElementById("progress");
   var toc = document.getElementById("toc");
   var tocToggle = document.getElementById("toc-toggle");
+  var prevBtn = document.getElementById("prev");
+  var nextBtn = document.getElementById("next");
+  var position = document.getElementById("position");
   var list = document.createElement("ul");
   var links = {};
+  var index = 0;
+
   sections.forEach(function (sec) {
     var li = document.createElement("li");
     var a = document.createElement("a");
@@ -56,24 +50,38 @@
     tocToggle.setAttribute("aria-expanded", open ? "true" : "false");
   }
   tocToggle.addEventListener("click", function () { setOpen(!toc.classList.contains("open")); });
-  toc.addEventListener("click", function (e) { if (e.target.tagName === "A") setOpen(false); });
 
-  // Highlight the lesson currently in view
-  var current = null;
-  function highlight() {
-    var line = window.innerHeight * 0.3;
-    var active = sections[0];
-    sections.forEach(function (sec) {
-      if (sec.getBoundingClientRect().top <= line) active = sec;
+  function show(i, scroll) {
+    index = Math.max(0, Math.min(sections.length - 1, i));
+    sections.forEach(function (sec, n) {
+      sec.hidden = n !== index;
+      links[sec.id].classList.toggle("active", n === index);
     });
-    if (active && active.id !== current) {
-      if (current) links[current].classList.remove("active");
-      links[active.id].classList.add("active");
-      current = active.id;
-    }
+    var pct = ((index + 1) / sections.length) * 100;
+    bar.style.width = pct + "%";
+    bar.setAttribute("aria-valuenow", Math.round(pct));
+    position.textContent = "Lesson " + (index + 1) + " of " + sections.length;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === sections.length - 1;
+    setOpen(false);
+    if (scroll) window.scrollTo(0, 0);
   }
-  window.addEventListener("scroll", highlight, { passive: true });
-  highlight();
+
+  function goTo(i) {
+    i = Math.max(0, Math.min(sections.length - 1, i));
+    show(i, true);
+    if (location.hash !== "#" + sections[i].id) location.hash = sections[i].id;
+  }
+
+  function fromHash() {
+    var id = location.hash.slice(1);
+    var i = sections.findIndex(function (sec) { return sec.id === id; });
+    show(i < 0 ? 0 : i, true);
+  }
+  window.addEventListener("hashchange", fromHash);
+  prevBtn.addEventListener("click", function () { goTo(index - 1); });
+  nextBtn.addEventListener("click", function () { goTo(index + 1); });
+  fromHash();
 
   // Checkable steps, remembered in the browser
   var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"][data-id]'));
