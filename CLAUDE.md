@@ -5,10 +5,13 @@
 - No frameworks and no build step: files open directly in a browser.
 
 ## Project Structure
-The repository is nearly empty for now:
-- `README.md` — the only file so far.
+- `index.html` — the single long page (header, contents menu, lessons, assignment).
+- `styles.css` — layout, responsive rules, light and dark themes.
+- `script.js` — theme toggle, progress bar, contents menu, tick-off steps (saved in the browser).
+- `images/` — screenshots and photos used in the assignment steps.
+- `README.md` — project readme.
 
-Update this section as files and folders are added.
+The assignment section is built. Lessons from the slides (Phase 1) go in `index.html` before it, as `<section class="part" id="...">` blocks; the contents menu picks them up automatically.
 
 ## Key Requirements
 1. Every page must be responsive and work on desktop, tablet, and phone.
